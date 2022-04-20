@@ -30,9 +30,28 @@ public class DriveBase {
     }
 
     public void calculateDrivePower(double x, double y, double r){
-        leftFrontDrive.setPower(r + x + y);
-        leftRearDrive.setPower(r - x + y);
-        rightFrontDrive.setPower(r - x - y);
-        rightRearDrive.setPower(r + x - y);
+        double lf = r + x + y;
+        double lr = r - x + y;
+        double rf = r - x - y;
+        double rr = r + x - y;
+
+        sendDrivePower(lf, lr, rf, rr);
+    }
+
+    public void sendDrivePower(double lf, double lr, double rf, double rr){
+        if (lf != 0)
+            leftFrontDrive.setPower(1);
+        if (lr != 0)
+            leftRearDrive.setPower(1);
+        if (rf != 0)
+            rightFrontDrive.setPower(1);
+        if (rr != 0)
+            rightRearDrive.setPower(1);
+        else {
+            leftFrontDrive.setPower(0);
+            leftRearDrive.setPower(0);
+            rightFrontDrive.setPower(0);
+            rightRearDrive.setPower(0);
+        }
     }
 }
