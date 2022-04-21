@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robot_component.Robot;
+import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 
 @Autonomous
 public class Auto1 extends LinearOpMode {
