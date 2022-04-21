@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class DriveBase {
+    public double speed = 1.0;
+
     public DcMotor leftFrontDrive;
     public DcMotor rightFrontDrive;
     public DcMotor leftRearDrive;

@@ -10,6 +10,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot extends DriveBase{
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
+
         super(hardwareMap, telemetry);
+    }
+
+    public void turnRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(-speed);
     }
 }
