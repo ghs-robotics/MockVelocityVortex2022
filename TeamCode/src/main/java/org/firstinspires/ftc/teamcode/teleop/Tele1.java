@@ -18,6 +18,7 @@ public class Tele1 extends LinearOpMode {
 
     Robot robot;
     Controller gp1;
+    Controller gp2;
     BNO055IMU imu;
     Orientation angles;
 
@@ -25,6 +26,7 @@ public class Tele1 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap, telemetry);
         gp1 = new Controller(gamepad1);
+        gp2 = new Controller(gamepad2);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
 
@@ -38,8 +40,10 @@ public class Tele1 extends LinearOpMode {
 
         while (opModeIsActive()){
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
+            robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            //robot.setIntakePower(gamepad2.left_stick_x);
+            //robot.setShooterPower(gamepad1.left_stick_y);
             telemetry.addData("z axis", angles.firstAngle);
             telemetry.addData("y axis", angles.secondAngle);
             telemetry.addData("x axis", angles.thirdAngle);
