@@ -19,21 +19,19 @@ public class Auto1 extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         waitForStart();
         runtime.reset();
-        while (opModeIsActive()){
-            double sec = runtime.seconds();
+        double sec = runtime.seconds();
 
-            robot.turn(true, .83, 90);
+        robot.turn(true, .83, 90);
 
-            robot.brake();
+        robot.brake();
 
-            //turn x degrees
-            //shoot
-            //turn back
-            //move straight into the side team ramp
+        //turn x degrees
+        //shoot
+        //turn back
+        //move straight into the side team ramp
 
-            telemetry.addData("Timer", runtime.seconds());
-            telemetry.update();
+        telemetry.addData("Timer", runtime.seconds());
+        telemetry.update();
 
-        }
     }
 }
