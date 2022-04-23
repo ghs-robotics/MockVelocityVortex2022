@@ -12,6 +12,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot_components.input.Controller;
 
+//test comment
+
 @TeleOp
 //Want to try using Opmode instead of LinearOp since I heard this is better for TeleOp
 public class Tele1 extends LinearOpMode {
