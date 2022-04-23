@@ -1,9 +1,14 @@
 package org.firstinspires.ftc.teamcode.robot_components.robot;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class DriveBase {
     public double speed = 1.0;
@@ -15,6 +20,11 @@ public class DriveBase {
 
     public Telemetry telemetry;
     public HardwareMap hardwareMap;
+    BNO055IMU imu;
+    Orientation angles;
+    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+
 
     public DriveBase (HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
@@ -28,6 +38,10 @@ public class DriveBase {
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRearDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         this.telemetry = telemetry;
     }
 
@@ -45,5 +59,21 @@ public class DriveBase {
         leftRearDrive.setPower(lr);
         rightFrontDrive.setPower(rf);
         rightRearDrive.setPower(rr);
+    }
+
+    public void turn (boolean right, double speed, int angle) {
+        this.speed = speed;
+        float endAngle = angles.firstAngle + angle;
+        while (angles.firstAngle < endAngle) {
+            if (right) {
+                sendDrivePower(speed, speed, -speed, -speed);
+            } else {
+                sendDrivePower(-speed, -speed, speed, speed);
+            }
+        }
+    }
+
+    public void brake() {
+        calculateDrivePower( 0, 0, 0);
     }
 }
