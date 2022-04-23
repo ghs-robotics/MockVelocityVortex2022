@@ -22,9 +22,6 @@ public class Auto1 extends LinearOpMode {
         while (opModeIsActive()){
             double sec = runtime.seconds();
 
-            if ((sec >= 3 && sec <= 5) || (sec >= 6 && sec <= 7.2))
-                robot.sendDrivePower(.5, .5, .5, .5);
-
             robot.turn(true, .83, 90);
 
             robot.brake();
