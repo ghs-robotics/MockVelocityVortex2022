@@ -17,7 +17,20 @@ public class Robot extends DriveBase {
         //shooterMotor = hardwareMap.get(DcMotor.class, "shooter");
 
     }
-
+    public void driveForward(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(speed);
+    }
+    public void driveRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(-speed);
+        rightRearDrive.setPower(speed);
+    }
     public void turnRight(double speed) {
         this.speed = speed;
         leftFrontDrive.setPower(speed);
