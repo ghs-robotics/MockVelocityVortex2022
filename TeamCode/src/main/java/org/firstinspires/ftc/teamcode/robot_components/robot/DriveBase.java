@@ -47,4 +47,27 @@ public class DriveBase {
         rightFrontDrive.setPower(rf);
         rightRearDrive.setPower(rr);
     }
+
+    public void driveForward(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(speed);
+    }
+    public void driveRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(-speed);
+        rightRearDrive.setPower(speed);
+    }
+    public void turnRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(-speed);
+    }
+
 }
