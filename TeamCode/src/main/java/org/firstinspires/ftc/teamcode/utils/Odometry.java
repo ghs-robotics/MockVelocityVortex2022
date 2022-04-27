@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.utils;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.Vec;
 
@@ -16,6 +17,13 @@ public class Odometry {
     DcMotor rightRear;
     DcMotor leftRear;
     Vec currentPos = new Vec(0, 0);
+
+    public Odometry(HardwareMap hardwareMap) {
+        leftFront = hardwareMap.get(DcMotor.class, "leftFrontDrive");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFrontDrive");
+        leftRear = hardwareMap.get(DcMotor.class, "leftRearDrive");
+        rightRear = hardwareMap.get(DcMotor.class, "rightRearDrive");
+    }
 
     public Vec translated(Vec input) {
         double a = input.getX(); // a is front left

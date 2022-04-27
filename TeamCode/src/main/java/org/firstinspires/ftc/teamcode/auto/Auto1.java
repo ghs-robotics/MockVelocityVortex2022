@@ -17,7 +17,7 @@ public class Auto1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap, telemetry);
-        odo = new Odometry();
+        odo = new Odometry(hardwareMap);
         robotPos = new Vec(0, 0);
 
         waitForStart();
