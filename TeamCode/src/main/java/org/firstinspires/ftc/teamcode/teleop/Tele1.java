@@ -53,11 +53,14 @@ public class Tele1 extends LinearOpMode {
 
             robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
+            //lifts big ball - y button
+            robot.liftYogaBall(gamepad1.y);
+
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 2           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //Changing the shooter power
+            //Changing the shooter power using the bumpers
             if (gamepad2.left_bumper)
                 shooterPower -= shooterIncrement;
             if (gamepad2.right_bumper)
@@ -67,15 +70,18 @@ public class Tele1 extends LinearOpMode {
             if (shooterPower > 1)
                 shooterPower = 1;
 
-            //Changeable shooter power
-            if (gamepad2.b)
-                //robot.setShooterPower(shooterPower);
+            //changeable shooter power button - b button
+            robot.setShooterPower(shooterPower, gamepad2.b);
+
+            //set shooter power button - x button
+            robot.setShooterPower(0.5, gamepad2.x);
 
             robot.setIntakePower(gamepad2.right_stick_y);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////
+
             telemetry.addData("z axis", angles.firstAngle);
             telemetry.addData("y axis", angles.secondAngle);
             telemetry.addData("x axis", angles.thirdAngle);
