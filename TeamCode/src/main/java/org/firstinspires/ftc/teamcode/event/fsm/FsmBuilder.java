@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.firstinspires.ftc.teamcode.event.Event;
+import org.firstinspires.ftc.teamcode.event.ticking.Ticker;
+import org.firstinspires.ftc.teamcode.event.ticking.Ticking;
+import org.firstinspires.ftc.teamcode.event.TickingState;
 
 public class FsmBuilder {
 
@@ -11,13 +14,9 @@ public class FsmBuilder {
         return new ProxyState();
     }
 
-//    public class StateBuilder {
-//        private final FsmState state;
-//
-//        protected StateBuilder(FsmState state) {
-//            this.state = state;
-//        }
-//    }
+    public TickingState placeHoldTickingState() {
+        return new TickingProxyState();
+    }
 
     public void setupPlaceholder(FsmState proxy, FsmState actual) {
         if (proxy instanceof ProxyState) ((ProxyState) proxy).setState(actual);
@@ -27,9 +26,24 @@ public class FsmBuilder {
         return new FsmDispatcher(initial);
     }
 
+    public static class TickingProxyState extends ProxyState implements TickingState {
+        @Override
+        public void setState(@NonNull FsmState state) {
+            assert state instanceof Ticking;
+
+            super.setState(state);
+        }
+
+        @Override
+        public void tick() {
+            if (state == null) return;
+            ((Ticking) state).tick();
+        }
+    }
+
     private static class ProxyState implements FsmState {
         @Nullable
-        private FsmState state = null;
+        protected FsmState state = null;
 
         public void setState(@NonNull FsmState state) {
             this.state = state;
