@@ -12,4 +12,8 @@ public class Robot extends DriveBase{
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
         super(hardwareMap, telemetry);
     }
+
+    public double getGyroAngle() {
+        return super.getGyroAngle();
+    }
 }
