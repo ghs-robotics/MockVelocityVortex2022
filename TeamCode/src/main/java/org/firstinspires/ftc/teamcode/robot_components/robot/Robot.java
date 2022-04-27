@@ -17,6 +17,9 @@ public class Robot extends DriveBase {
         //shooterMotor = hardwareMap.get(DcMotor.class, "shooter");
 
     }
+    public double getGyroAngle() {
+        return super.getGyroAngle();
+    }
     public void driveForward(double speed) {
         this.speed = speed;
         leftFrontDrive.setPower(speed);
