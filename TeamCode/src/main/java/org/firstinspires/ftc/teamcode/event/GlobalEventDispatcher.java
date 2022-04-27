@@ -2,20 +2,19 @@ package org.firstinspires.ftc.teamcode.event;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventManager {
-    private static EventManager instance;
+public class GlobalEventDispatcher implements EventDispatcher {
+    private static GlobalEventDispatcher instance;
     private final Map<String, List<EventHandler<? extends Event>>> handlers = new HashMap<>();
 
-    private EventManager() {
+    private GlobalEventDispatcher() {
     }
 
-    public static synchronized EventManager getInstance() {
-        if (instance == null) instance = new EventManager();
+    public static synchronized GlobalEventDispatcher getInstance() {
+        if (instance == null) instance = new GlobalEventDispatcher();
         return instance;
     }
 
@@ -47,8 +46,9 @@ public class EventManager {
         handlers.put(type.getName(), existing);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-    public <T extends Event> boolean send(T event) {
+    public <T extends Event> boolean dispatch(T event) {
         final List<EventHandler<? extends Event>> existing = getAllFor(event.getClass());
 
         for (EventHandler<? extends Event> handler : existing) {
