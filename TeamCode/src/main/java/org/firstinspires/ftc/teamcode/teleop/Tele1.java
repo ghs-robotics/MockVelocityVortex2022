@@ -42,6 +42,13 @@ public class Tele1 extends LinearOpMode {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
             robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////           Controller 2           ////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+
+            robot.setIntakePower(gamepad2.right_stick_y);
             //robot.setIntakePower(gamepad2.left_stick_x);
             //robot.setShooterPower(gamepad1.left_stick_y);
             telemetry.addData("z axis", angles.firstAngle);
