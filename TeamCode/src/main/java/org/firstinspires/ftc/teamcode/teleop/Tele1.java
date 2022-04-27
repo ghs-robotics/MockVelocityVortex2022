@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.robot_components.input.Btn;
 import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot_components.input.Controller;
 
@@ -44,6 +42,7 @@ public class Tele1 extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()){
+            robot.releaseLiftAtStart(opModeIsActive());
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +53,7 @@ public class Tele1 extends LinearOpMode {
             robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             //lifts big ball - y button
-            robot.liftYogaBall(gamepad1.y);
+            robot.liftBall(gamepad1.y);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 2           ////////////////////////////////

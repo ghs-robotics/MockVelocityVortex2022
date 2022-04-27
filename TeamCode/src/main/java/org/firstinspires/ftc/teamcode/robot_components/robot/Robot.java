@@ -11,6 +11,7 @@ public class Robot extends DriveBase {
 
     public DcMotor intakeMotor;
     public DcMotor shooterMotor;
+    public DcMotor extendingLiftMotor;
 
     public Servo indexingServo;
     public Servo liftingServo;
@@ -23,6 +24,7 @@ public class Robot extends DriveBase {
 
         intakeMotor = hardwareMap.get(DcMotor.class, "intake"); //port 0 expansion hub
         //shooterMotor = hardwareMap.get(DcMotor.class, "shooter"); //port 1 expansion hub
+        //liftMotor = hardwareMap.get(DcMotor.class, "extender"); //port 2 expansion hub
         //indexingServo = hardwareMap.get(Servo.class, "index"); //port 0 control hub
         //liftingServo = hardwareMap.get(Servo.class, "lift"); //port 1 control hub
 
@@ -32,11 +34,18 @@ public class Robot extends DriveBase {
         intakeMotor.setPower(ip);
     }
 
-    public void liftYogaBall (boolean liftIt){
-        if (liftIt)
+    public void releaseLiftAtStart (boolean init){
+        if (init)
             liftingServo.setPosition(1);
         else
             liftingServo.setPosition(0);
+    }
+
+    public void liftBall (boolean lift){
+        if (lift)
+            extendingLiftMotor.setTargetPosition(500);
+        else
+            extendingLiftMotor.setTargetPosition(0);
     }
 
     public void setShooterPower(double sp, boolean run){

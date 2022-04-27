@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import android.graphics.Path;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -22,6 +20,7 @@ public class Auto1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
+            robot.releaseLiftAtStart(opModeIsActive());
             double sec = runtime.seconds();
 
             if ((sec >= 3 && sec <= 5) || (sec >= 6 && sec <= 7.2))
