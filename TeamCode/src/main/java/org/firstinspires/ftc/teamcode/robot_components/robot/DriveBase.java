@@ -32,6 +32,7 @@ public class DriveBase {
     }
 
     public void calculateDrivePower(double x, double y, double r){
+        r = -r;
         double lf = r - x + y;
         double lr = r + x + y;
         double rf = r - x - y;
