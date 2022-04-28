@@ -56,9 +56,9 @@ public class DriveBase {
         sendDrivePower(lf, lr, rf, rr);
     }
 
-    public void sendDrivePower(double lf, double lr, double rf, double rr){
-        leftFrontDrive.setPower(lf);
-        leftRearDrive.setPower(lr);
+    public void sendDrivePower(double lf, double lr, double rf, double rr){ //reversed to match motor polarity or something
+        leftFrontDrive.setPower(-1 * lf);
+        leftRearDrive.setPower(-1 * lr);
         rightFrontDrive.setPower(rf);
         rightRearDrive.setPower(rr);
     }

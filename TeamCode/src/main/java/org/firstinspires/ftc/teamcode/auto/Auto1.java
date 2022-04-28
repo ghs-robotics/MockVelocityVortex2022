@@ -20,7 +20,7 @@ public class Auto1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap, telemetry);
-        odo = new Odometry(hardwareMap);
+        odo = new Odometry(hardwareMap, telemetry);
         robotPos = new Vec(0, 0);
 
         telemetry.addData("Status", "Initialized");
@@ -30,14 +30,14 @@ public class Auto1 extends LinearOpMode {
             robotPos = odo.update(robot.getGyroAngle());
             telemetry.addData("distX", robotPos.getX());
             telemetry.addData("distY", robotPos.getY());
-            telemetry.update();
             double sec = runtime.seconds();
 
-            if ((sec >= 3 && sec <= 5) || (sec >= 6 && sec <= 7.2))
-                robot.sendDrivePower(.5, .5, .5, .5);
-            if (sec > 5 && sec <= 6)
-                robot.turnRight(.83);
-            robot.sendDrivePower(0, 0, 0, 0);
+            //robot.sendDrivePower(0.2, 0.2, 0.2, 0.2); //forwards
+            //robot.sendDrivePower(-0.2, -0.2, -0.2, -0.2); //backwards
+            robot.sendDrivePower(0.2, -0.2, -0.2, 0.2); //right
+            //robot.sendDrivePower(-0.2, 0.2, 0.2, -0.2); //left
+            //robot.sendDrivePower(0.2, -0.2, 0.2, -0.2); //clock
+            //robot.sendDrivePower(-0.2, 0.2, -0.2, 0.2); //counter
 
             //turn x degrees
             //shoot
