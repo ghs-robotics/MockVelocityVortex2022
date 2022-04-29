@@ -20,14 +20,17 @@ public class Auto1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
-            robot.releaseLiftAtStart(opModeIsActive());
+            //robot.releaseLiftAtStart(opModeIsActive());
             double sec = runtime.seconds();
 
-            if ((sec >= 3 && sec <= 5) || (sec >= 6 && sec <= 7.2))
+            /*if ((sec >= 3 && sec <= 5) || (sec >= 6 && sec <= 7.2))
                 robot.sendDrivePower(.5, .5, .5, .5);
             if (sec > 5 && sec <= 6)
                 robot.turnRight(.83);
-            robot.sendDrivePower(0, 0, 0, 0);
+            robot.sendDrivePower(0, 0, 0, 0); */
+            //robot.setShooterPower(0.5, true);
+            robot.extendingLiftMotor.setTargetPosition(1000);
+            telemetry.addData("extendingLiftMotor currentPosition", robot.extendingLiftMotor.getCurrentPosition());
 
             //turn x degrees
             //shoot

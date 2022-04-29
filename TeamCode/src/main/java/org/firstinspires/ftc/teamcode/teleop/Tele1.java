@@ -42,7 +42,8 @@ public class Tele1 extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()){
-            robot.releaseLiftAtStart(opModeIsActive());
+            //reset lift at start
+            //robot.releaseLiftAtStart(opModeIsActive());
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,41 +51,39 @@ public class Tele1 extends LinearOpMode {
             //gyro angle setting
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+            //driving
             robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
-
-            //lifts big ball - y button
-            robot.liftBall(gamepad1.y);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 2           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //Changing the shooter power using the bumpers
-            if (gamepad2.left_bumper)
-                shooterPower -= shooterIncrement;
-            if (gamepad2.right_bumper)
-                shooterPower += shooterIncrement;
-            if (shooterPower < 0)
-                shooterPower = 0;
-            if (shooterPower > 1)
-                shooterPower = 1;
+            //intake
+            robot.setIntakePower(gamepad2.right_stick_y); //minimum 0.4 needed for successful intake
 
-            //changeable shooter power button - b button
-            robot.setShooterPower(shooterPower, gamepad2.b);
+            //shooting
+            robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
 
-            //set shooter power button - x button
-            robot.setShooterPower(0.5, gamepad2.x);
+            //release lift
+            robot.releaseLiftAtStart(gamepad2.x);
+            //robot.liftingServo.setPosition(gamepad2.right_stick_x);
 
-            robot.setIntakePower(gamepad2.right_stick_y);
+            //lifting
+            robot.liftBall(gamepad2.y);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////
 
-            telemetry.addData("z axis", angles.firstAngle);
+            telemetry.addData("gamepad2.right_stick_y", gamepad2.right_stick_y);
+            telemetry.addData("gamepad2.right_stick_x", gamepad2.right_stick_x);
+            telemetry.addData("gamepad2.left_stick_y", gamepad2.left_stick_y);
+            telemetry.addData("gamepad2.a", gamepad2.a);
+            telemetry.addData("gamepad2.y", gamepad2.y);
+            /*telemetry.addData("z axis", angles.firstAngle);
             telemetry.addData("y axis", angles.secondAngle);
             telemetry.addData("x axis", angles.thirdAngle);
-            telemetry.addData("shooter power variable", shooterPower);
+            telemetry.addData("shooter power variable", shooterPower); */
             telemetry.update();
         }
     }
