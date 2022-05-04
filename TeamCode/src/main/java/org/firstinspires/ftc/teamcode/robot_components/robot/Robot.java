@@ -18,8 +18,6 @@ public class Robot extends DriveBase {
     public Servo indexingServo;
     public Servo liftingServo;
 
-    ElapsedTime running = new ElapsedTime();
-    double milli = running.milliseconds();
 
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
         super(hardwareMap, telemetry);
@@ -41,9 +39,9 @@ public class Robot extends DriveBase {
 
     public void releaseLiftAtStart (boolean init){
         if (init)
-            liftingServo.setPosition(0.6);
+            liftingServo.setPosition(0.1);
         else
-            liftingServo.setPosition(0.75);
+            liftingServo.setPosition(0.5);
     }
 
     public void liftBall (boolean lift) {

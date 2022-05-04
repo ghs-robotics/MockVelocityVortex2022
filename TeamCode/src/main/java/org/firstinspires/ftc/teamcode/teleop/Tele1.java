@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -20,6 +21,7 @@ public class Tele1 extends LinearOpMode {
     Controller gp2;
     BNO055IMU imu;
     Orientation angles;
+    ElapsedTime runtime = new ElapsedTime();
 
     //Variable for the changeable shooter power
     double shooterPower = 0.5;
@@ -40,10 +42,12 @@ public class Tele1 extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+        runtime.reset();
         while (opModeIsActive()){
+            double sec = runtime.seconds();
+            boolean release = sec < 3;
             //reset lift at start
-            //robot.releaseLiftAtStart(opModeIsActive());
+            robot.releaseLiftAtStart(release);
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,8 +68,6 @@ public class Tele1 extends LinearOpMode {
             //shooting
             robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
 
-            //release lift
-            robot.releaseLiftAtStart(gamepad2.x);
             //robot.liftingServo.setPosition(gamepad2.right_stick_x);
 
             //lifting
