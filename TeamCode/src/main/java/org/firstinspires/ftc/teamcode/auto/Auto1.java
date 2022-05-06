@@ -6,20 +6,30 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 
+import org.firstinspires.ftc.teamcode.utils.Odometry;
+import org.firstinspires.ftc.teamcode.utils.Vec;
+
 @Autonomous
 public class Auto1 extends LinearOpMode {
 
     Robot robot;
-    public ElapsedTime runtime = new ElapsedTime();
+    Odometry odo;
+    Vec robotPos;
+    ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap, telemetry);
+        odo = new Odometry(hardwareMap, telemetry);
+        robotPos = new Vec(0, 0);
 
         telemetry.addData("Status", "Initialized");
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
+            robotPos = odo.update(robot.getGyroAngle());
+            telemetry.addData("distX", robotPos.getX());
+            telemetry.addData("distY", robotPos.getY());
             //robot.releaseLiftAtStart(opModeIsActive());
             double sec = runtime.seconds();
 

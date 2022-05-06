@@ -1,9 +1,14 @@
 package org.firstinspires.ftc.teamcode.robot_components.robot;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class DriveBase {
     public double speed = 1.0;
@@ -15,6 +20,9 @@ public class DriveBase {
 
     public Telemetry telemetry;
     public HardwareMap hardwareMap;
+    BNO055IMU imu;
+    Orientation angles;
+    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
     public DriveBase (HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
@@ -28,7 +36,14 @@ public class DriveBase {
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRearDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         this.telemetry = telemetry;
+    }
+
+    public double getGyroAngle() {
+        return angles.firstAngle;
     }
 
     public void calculateDrivePower(double x, double y, double r){
@@ -41,9 +56,9 @@ public class DriveBase {
         sendDrivePower(lf, lr, rf, rr);
     }
 
-    public void sendDrivePower(double lf, double lr, double rf, double rr){
-        leftFrontDrive.setPower(lf);
-        leftRearDrive.setPower(lr);
+    public void sendDrivePower(double lf, double lr, double rf, double rr){ //reversed to match motor polarity or something
+        leftFrontDrive.setPower(-1 * lf);
+        leftRearDrive.setPower(-1 * lr);
         rightFrontDrive.setPower(rf);
         rightRearDrive.setPower(rr);
     }

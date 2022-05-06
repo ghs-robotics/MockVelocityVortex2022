@@ -20,6 +20,7 @@ public class Robot extends DriveBase {
 
 
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
+
         super(hardwareMap, telemetry);
 
         intakeMotor = hardwareMap.get(DcMotor.class, "intake"); //port 0 expansion hub
@@ -31,6 +32,30 @@ public class Robot extends DriveBase {
         extendingLiftMotor.setTargetPosition(0);
         extendingLiftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendingLiftMotor.setPower(1);
+    }
+    public double getGyroAngle() {
+        return super.getGyroAngle();
+    }
+    public void driveForward(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(speed);
+    }
+    public void driveRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(-speed);
+        rightRearDrive.setPower(speed);
+    }
+    public void turnRight(double speed) {
+        this.speed = speed;
+        leftFrontDrive.setPower(speed);
+        rightFrontDrive.setPower(-speed);
+        leftRearDrive.setPower(speed);
+        rightRearDrive.setPower(-speed);
     }
 
     public void setIntakePower(double ip){
