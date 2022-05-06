@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.robot_components.input.Btn;
 import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot_components.input.Controller;
 
@@ -22,10 +21,7 @@ public class Tele1 extends LinearOpMode {
     Controller gp2;
     BNO055IMU imu;
     Orientation angles;
-
-    //Variable for the changeable shooter power
-    double shooterPower = 0.5;
-    double shooterIncrement = 0.01;
+    ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -42,8 +38,13 @@ public class Tele1 extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+        runtime.reset();
         while (opModeIsActive()){
+            //reset lift at start
+            double sec = runtime.seconds();
+            boolean release = sec < 3;
+            robot.releaseLiftAtStart(release);
+
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,35 +52,35 @@ public class Tele1 extends LinearOpMode {
             //gyro angle setting
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+            //driving
             robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 2           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //Changing the shooter power
-            if (gamepad2.left_bumper)
-                shooterPower -= shooterIncrement;
-            if (gamepad2.right_bumper)
-                shooterPower += shooterIncrement;
-            if (shooterPower < 0)
-                shooterPower = 0;
-            if (shooterPower > 1)
-                shooterPower = 1;
+            //intake
+            robot.setIntakePower(-gamepad2.left_stick_y); //minimum 0.4 needed for successful intake
 
-            //Changeable shooter power
-            if (gamepad2.b)
-                //robot.setShooterPower(shooterPower);
+            //shooting
+            robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
 
-            robot.setIntakePower(gamepad2.right_stick_y);
+            //lifting
+            robot.liftBall(gamepad2.y);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////
-            telemetry.addData("z axis", angles.firstAngle);
+
+            telemetry.addData("gamepad2.right_stick_y", gamepad2.right_stick_y);
+            telemetry.addData("gamepad2.right_stick_x", gamepad2.right_stick_x);
+            telemetry.addData("gamepad2.left_stick_y", gamepad2.left_stick_y);
+            telemetry.addData("gamepad2.a", gamepad2.a);
+            telemetry.addData("gamepad2.y", gamepad2.y);
+            /*telemetry.addData("z axis", angles.firstAngle);
             telemetry.addData("y axis", angles.secondAngle);
             telemetry.addData("x axis", angles.thirdAngle);
-            telemetry.addData("shooter power variable", shooterPower);
+            telemetry.addData("shooter power variable", shooterPower); */
             telemetry.update();
         }
     }
