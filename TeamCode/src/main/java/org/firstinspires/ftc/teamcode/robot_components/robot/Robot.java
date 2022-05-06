@@ -41,7 +41,7 @@ public class Robot extends DriveBase {
         if (init)
             liftingServo.setPosition(0.1);
         else
-            liftingServo.setPosition(0.5);
+            liftingServo.setPosition(0.44);
     }
 
     public void liftBall (boolean lift) {
@@ -57,7 +57,8 @@ public class Robot extends DriveBase {
     }
 
     public void setShooterPower(double sp, boolean run){
-        shooterMotor.setPower(-1 * sp);
+        if (run)
+            shooterMotor.setPower(1 * sp);
         indexShooter(run);
     }
 
@@ -69,4 +70,5 @@ public class Robot extends DriveBase {
         else
             indexingServo.setPosition(0.7); //Blocking position
     }
+
 }

@@ -23,10 +23,6 @@ public class Tele1 extends LinearOpMode {
     Orientation angles;
     ElapsedTime runtime = new ElapsedTime();
 
-    //Variable for the changeable shooter power
-    double shooterPower = 0.5;
-    double shooterIncrement = 0.01;
-
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Robot(hardwareMap, telemetry);
@@ -44,10 +40,11 @@ public class Tele1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
+            //reset lift at start
             double sec = runtime.seconds();
             boolean release = sec < 3;
-            //reset lift at start
             robot.releaseLiftAtStart(release);
+
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,12 +60,10 @@ public class Tele1 extends LinearOpMode {
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
             //intake
-            robot.setIntakePower(gamepad2.right_stick_y); //minimum 0.4 needed for successful intake
+            robot.setIntakePower(-gamepad2.left_stick_y); //minimum 0.4 needed for successful intake
 
             //shooting
             robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
-
-            //robot.liftingServo.setPosition(gamepad2.right_stick_x);
 
             //lifting
             robot.liftBall(gamepad2.y);
