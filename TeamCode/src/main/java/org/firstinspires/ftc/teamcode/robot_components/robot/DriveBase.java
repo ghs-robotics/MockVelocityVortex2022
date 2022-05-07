@@ -9,9 +9,11 @@ public class DriveBase {
     public double speed = 1.0;
 
     public DcMotor leftFrontDrive;
-    public DcMotor rightFrontDrive;
     public DcMotor leftRearDrive;
+    public DcMotor rightFrontDrive;
     public DcMotor rightRearDrive;
+
+    private final double[] PWRADJ  = {1.0, 1.0, 1.0, 1.0};
 
     public Telemetry telemetry;
     public HardwareMap hardwareMap;
@@ -19,13 +21,13 @@ public class DriveBase {
     public DriveBase (HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
         leftFrontDrive = hardwareMap.get(DcMotor.class, "leftFrontDrive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
         leftRearDrive = hardwareMap.get(DcMotor.class, "leftRearDrive");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
         rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");
 
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRearDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         this.telemetry = telemetry;
@@ -42,10 +44,10 @@ public class DriveBase {
     }
 
     public void sendDrivePower(double lf, double lr, double rf, double rr){
-        leftFrontDrive.setPower(lf);
-        leftRearDrive.setPower(lr);
-        rightFrontDrive.setPower(rf);
-        rightRearDrive.setPower(rr);
+        leftFrontDrive.setPower(lf * PWRADJ[0]);
+        leftRearDrive.setPower(lr * PWRADJ[1]);
+        rightFrontDrive.setPower(rf * PWRADJ[2]);
+        rightRearDrive.setPower(rr * PWRADJ[3]);
     }
 
     public void driveForward(double speed) {

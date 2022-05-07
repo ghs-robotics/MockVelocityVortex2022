@@ -20,11 +20,16 @@ public class Auto1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        //thing1
-        this.stop(5);
-        //thing2
-        this.stop(10);
-        //thing3
+        robot.shootAtPower(-1);
+        this.stop(1);
+        robot.indexShooter(true);
+        this.stop(2);
+        robot.indexShooter(false);
+        robot.shootAtPower(0);
+        this.stop(4);
+        robot.sendDrivePower(1, 1, -1, -1);
+        this.stop(6);
+        robot.sendDrivePower(0, 0, 0, 0);
     }
 
     private void stop(double sec) {
@@ -32,3 +37,11 @@ public class Auto1 extends LinearOpMode {
         while (runtime.seconds() < sec) {}
     }
 }
+
+//launching wiffle balls
+//rotate to correct angle
+//launch preloaded wiffle ball
+//start launcher motor
+//release indexer
+//park on vortex base, pushing cap ball in doing so
+//drive to correct point

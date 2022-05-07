@@ -58,8 +58,12 @@ public class Robot extends DriveBase {
 
     public void setShooterPower(double sp, boolean run){
         if (run)
-            shooterMotor.setPower(1 * sp);
+            shooterMotor.setPower(sp);
         indexShooter(run);
+    }
+
+    public void shootAtPower(double sp) { //used only for auto purposes
+        shooterMotor.setPower(sp);
     }
 
     public void indexShooter (boolean run){
