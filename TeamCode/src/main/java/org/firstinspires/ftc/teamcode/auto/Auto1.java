@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.robot_components.robot.Robot;
 public class Auto1 extends LinearOpMode {
 
     Robot robot;
-    public ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -19,23 +19,16 @@ public class Auto1 extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         waitForStart();
         runtime.reset();
-        double sec = runtime.seconds();
-        while (opModeIsActive()){
-            //robot.releaseLiftAtStart(opModeIsActive());
 
+        //thing1
+        this.stop(5);
+        //thing2
+        this.stop(10);
+        //thing3
+    }
 
-            robot.extendingLiftMotor.setTargetPosition(1000);
-            telemetry.addData("extendingLiftMotor currentPosition", robot.extendingLiftMotor.getCurrentPosition());
-
-            //turn x degrees
-            //shoot
-            //turn back
-            //move straight into the side team ramp
-
-            telemetry.addData("Timer", runtime.seconds());
-            telemetry.update();
-
-        }
-
+    private void stop(double sec) {
+        runtime.reset();
+        while (runtime.seconds() < sec) {}
     }
 }
