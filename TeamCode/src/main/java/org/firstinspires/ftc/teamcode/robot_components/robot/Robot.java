@@ -11,68 +11,35 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot extends DriveBase {
 
-    public DcMotor intakeMotor;
-    public DcMotor shooterMotor;
-    public DcMotor extendingLiftMotor;
-
-    public Servo indexingServo;
-    public Servo liftingServo;
-
+    public DcMotor shooterLF;
+    public DcMotor shooterLR;
+    public DcMotor shooterRF;
+    public DcMotor shooterRR;
 
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
         super(hardwareMap, telemetry);
 
-        intakeMotor = hardwareMap.get(DcMotor.class, "intake"); //port 0 expansion hub
-        shooterMotor = hardwareMap.get(DcMotor.class, "shooter"); //port 2 expansion hub
-        extendingLiftMotor = hardwareMap.get(DcMotor.class, "extender"); //port 1 expansion hub
-        indexingServo = hardwareMap.get(Servo.class, "index"); //port 0 control hub
-        liftingServo = hardwareMap.get(Servo.class, "lift"); //port 0 expansion hub
-
-        extendingLiftMotor.setTargetPosition(0);
-        extendingLiftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendingLiftMotor.setPower(1);
+        shooterLF = hardwareMap.get(DcMotor.class, "shooterLF");
+        shooterLR = hardwareMap.get(DcMotor.class, "shooterLR");
+        shooterRF = hardwareMap.get(DcMotor.class, "shooterRF");
+        shooterRR = hardwareMap.get(DcMotor.class, "shooterRR");
     }
 
-    public void setIntakePower(double ip){
-        intakeMotor.setPower(ip);
+    public void shoot(double sp){
+        double leftPower = sp;
+        double rightPower = -sp;
+
+        shooterLF.setPower(leftPower);
+        shooterLR.setPower(leftPower);
+
+        shooterRF.setPower(rightPower);
+        shooterRR.setPower(rightPower);
     }
 
-    public void releaseLiftAtStart (boolean init){
-        if (init)
-            liftingServo.setPosition(0.1);
-        else
-            liftingServo.setPosition(0.44);
-    }
-
-    public void liftBall (boolean lift) {
-        telemetry.addData("lift position", extendingLiftMotor.getCurrentPosition());
-        telemetry.addData("extender mode", extendingLiftMotor.getMode());
-        if (lift) {
-            extendingLiftMotor.setTargetPosition(3500);
-            telemetry.addData("target position", 3500);
-        } else {
-            extendingLiftMotor.setTargetPosition(0);
-            telemetry.addData("target position", 0);
-        }
-    }
-
-    public void setShooterPower(double sp, boolean run){
+    public void shootMaxPower(boolean run){
         if (run)
-            shooterMotor.setPower(sp);
-        indexShooter(run);
-    }
-
-    public void shootAtPower(double sp) { //used only for auto purposes
-        shooterMotor.setPower(sp);
-    }
-
-    public void indexShooter (boolean run){
-        telemetry.addData("index", indexingServo.getDirection());
-
-        if (run)
-            indexingServo.setPosition(0.45); //Cleared position
+            shoot(1);
         else
-            indexingServo.setPosition(0.7); //Blocking position
+            shoot(0);
     }
-
 }

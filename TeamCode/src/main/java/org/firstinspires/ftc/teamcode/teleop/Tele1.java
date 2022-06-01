@@ -43,7 +43,6 @@ public class Tele1 extends LinearOpMode {
             //reset lift at start
             double sec = runtime.seconds();
             boolean release = sec < 3;
-            robot.releaseLiftAtStart(release);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
@@ -59,14 +58,9 @@ public class Tele1 extends LinearOpMode {
             ////////////////////////////////           Controller 2           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //intake
-            robot.setIntakePower(-gamepad2.left_stick_y); //minimum 0.4 needed for successful intake
+            robot.shoot(gamepad2.left_stick_y);
 
-            //shooting
-            robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
-
-            //lifting
-            robot.liftBall(gamepad2.y);
+            robot.shootMaxPower(gamepad2.a);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
