@@ -20,7 +20,11 @@ public class DriveBase {
 
     public DriveBase (HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
- /*       leftFrontDrive = hardwareMap.get(DcMotor.class, "leftFrontDrive");
+        /**
+         * Uncomment this section if there will be a drive base
+
+
+        leftFrontDrive = hardwareMap.get(DcMotor.class, "leftFrontDrive");
         leftRearDrive = hardwareMap.get(DcMotor.class, "leftRearDrive");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
         rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");*/

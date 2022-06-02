@@ -40,37 +40,30 @@ public class Tele1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
-            //reset lift at start
-            double sec = runtime.seconds();
-            boolean release = sec < 3;
-
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 1           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //gyro angle setting
-            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            //Scalable shooter - left stick y
+            robot.shoot(gamepad1.left_stick_y);
 
-            //driving
-            robot.calculateDrivePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            //max power shooter - a button
+            robot.shootMaxPower(gamepad1.a);
+
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////           Controller 2           ////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            robot.shoot(gamepad2.left_stick_y);
-
-            robot.shootMaxPower(gamepad2.a);
+            //driving
+            robot.calculateDrivePower(gamepad2.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////
 
-            telemetry.addData("gamepad2.right_stick_y", gamepad2.right_stick_y);
-            telemetry.addData("gamepad2.right_stick_x", gamepad2.right_stick_x);
             telemetry.addData("gamepad2.left_stick_y", gamepad2.left_stick_y);
             telemetry.addData("gamepad2.a", gamepad2.a);
-            telemetry.addData("gamepad2.y", gamepad2.y);
             /*telemetry.addData("z axis", angles.firstAngle);
             telemetry.addData("y axis", angles.secondAngle);
             telemetry.addData("x axis", angles.thirdAngle);

@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+//Got rid of all the other functions
 public class Robot extends DriveBase {
 
     public DcMotor shooterLF;
@@ -25,6 +26,7 @@ public class Robot extends DriveBase {
         shooterRR = hardwareMap.get(DcMotor.class, "shooterRR");
     }
 
+    //Need to test if the
     public void shoot(double sp){
         double leftPower = sp;
         double rightPower = -sp;
