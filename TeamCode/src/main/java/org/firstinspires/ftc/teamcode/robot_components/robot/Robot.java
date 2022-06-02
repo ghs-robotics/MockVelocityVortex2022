@@ -34,7 +34,7 @@ public class Robot extends DriveBase {
     }
 
     public void setIntakePower(double ip){
-        intakeMotor.setPower(ip);
+        intakeMotor.setPower(-ip);
     }
 
     public void releaseLiftAtStart (boolean init){
@@ -56,10 +56,9 @@ public class Robot extends DriveBase {
         }
     }
 
-    public void setShooterPower(double sp, boolean run){
-        if (run)
-            shooterMotor.setPower(sp);
-        indexShooter(run);
+    public void setShooterPower(double sp){
+        shooterMotor.setPower(sp);
+
     }
 
     public void shootAtPower(double sp) { //used only for auto purposes

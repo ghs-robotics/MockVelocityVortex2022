@@ -60,10 +60,16 @@ public class Tele1 extends LinearOpMode {
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
             //intake
-            robot.setIntakePower(-gamepad2.left_stick_y); //minimum 0.4 needed for successful intake
+            if (gamepad2.a)
+                robot.setIntakePower(0);
+            else
+                robot.setIntakePower(gamepad2.left_stick_y); //minimum 0.4 needed for successful intake
 
             //shooting
-            robot.setShooterPower(gamepad2.left_stick_y, gamepad2.a);
+            robot.setShooterPower(gamepad2.left_stick_y);
+
+            //indexing
+            robot.indexShooter(gamepad2.a);
 
             //lifting
             robot.liftBall(gamepad2.y);
