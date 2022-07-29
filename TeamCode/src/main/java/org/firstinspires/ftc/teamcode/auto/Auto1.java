@@ -20,16 +20,6 @@ public class Auto1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        robot.shootAtPower(-1);
-        this.stop(1);
-        robot.indexShooter(true);
-        this.stop(2);
-        robot.indexShooter(false);
-        robot.shootAtPower(0);
-        this.stop(4);
-        robot.sendDrivePower(1, 1, -1, -1);
-        this.stop(6);
-        robot.sendDrivePower(0, 0, 0, 0);
     }
 
     private void stop(double sec) {

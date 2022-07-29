@@ -27,25 +27,25 @@ public class DriveBase {
         leftFrontDrive = hardwareMap.get(DcMotor.class, "leftFrontDrive");
         leftRearDrive = hardwareMap.get(DcMotor.class, "leftRearDrive");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
-        rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");*/
+        rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");
 
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRearDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        */
         this.telemetry = telemetry;
     }
 
-    public void calculateDrivePower(double x, double y, double r){
-        r = -r;
-        double lf = r - x + y;
-        double lr = r + x + y;
-        double rf = r - x - y;
-        double rr = r + x - y;
-        
-        sendDrivePower(lf, lr, rf, rr);
-    }
+//    public void calculateDrivePower(double x, double y, double r){
+//        r = -r;
+//        double lf = r - x + y;
+//        double lr = r + x + y;
+//        double rf = r - x - y;
+//        double rr = r + x - y;
+//
+//        sendDrivePower(lf, lr, rf, rr);
+//    }
 
     public void sendDrivePower(double lf, double lr, double rf, double rr){
         leftFrontDrive.setPower(lf * PWRADJ[0]);

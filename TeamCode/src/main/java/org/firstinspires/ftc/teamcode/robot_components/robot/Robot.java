@@ -19,11 +19,16 @@ public class Robot extends DriveBase {
 
     public Robot (HardwareMap hardwareMap, Telemetry telemetry){
         super(hardwareMap, telemetry);
-
+/*
         shooterLF = hardwareMap.get(DcMotor.class, "shooterLF");
         shooterLR = hardwareMap.get(DcMotor.class, "shooterLR");
         shooterRF = hardwareMap.get(DcMotor.class, "shooterRF");
         shooterRR = hardwareMap.get(DcMotor.class, "shooterRR");
+
+        shooterLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooterLR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooterRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooterRR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);*/
     }
 
     //Need to test if the

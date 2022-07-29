@@ -45,10 +45,10 @@ public class Tele1 extends LinearOpMode {
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
             //Scalable shooter - left stick y
-            robot.shoot(gamepad1.left_stick_y);
+            //robot.shoot(gamepad1.left_stick_y);
 
             //max power shooter - a button
-            robot.shootMaxPower(gamepad1.a);
+            //robot.shootMaxPower(gamepad1.a);
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,19 +56,30 @@ public class Tele1 extends LinearOpMode {
             //////////////////////////////////////////////////////////////////////////////////////////////////
 
             //driving
-            robot.calculateDrivePower(gamepad2.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            //robot.calculateDrivePower(gamepad2.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////           Telemetry           /////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////
 
-            telemetry.addData("gamepad2.left_stick_y", gamepad2.left_stick_y);
-            telemetry.addData("gamepad2.a", gamepad2.a);
-            /*telemetry.addData("z axis", angles.firstAngle);
-            telemetry.addData("y axis", angles.secondAngle);
-            telemetry.addData("x axis", angles.thirdAngle);
-            telemetry.addData("shooter power variable", shooterPower); */
+            telemetry.addData("a", gamepad1.a);
+            telemetry.addData("b", gamepad1.b);
+            telemetry.addData("y", gamepad1.y);
+            telemetry.addData("x", gamepad1.x);
+            telemetry.addData("l bumper", gamepad1.left_bumper);
+            telemetry.addData("r bumper", gamepad1.right_bumper);
+            telemetry.addData("l stick x", gamepad1.left_stick_x);
+            telemetry.addData("l stick y", gamepad1.left_stick_y);
+            telemetry.addData("r stick x", gamepad1.right_stick_x);
+            telemetry.addData("r stick y", gamepad1.right_stick_y);
+            telemetry.addData("dpad u", gamepad1.dpad_up);
+            telemetry.addData("dpad d", gamepad1.dpad_down);
+            telemetry.addData("dpad l", gamepad1.dpad_left);
+            telemetry.addData("dpad r", gamepad1.dpad_right);
+            telemetry.addData("l trigger", gamepad1.left_trigger);
+            telemetry.addData("r trigger", gamepad1.right_trigger);
             telemetry.update();
+            //telemetry.addData("", gamepad1.);
         }
     }
 }
